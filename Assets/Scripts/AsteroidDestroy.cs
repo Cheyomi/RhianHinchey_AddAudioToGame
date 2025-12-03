@@ -11,6 +11,7 @@ public class AsteroidDestroy : MonoBehaviour
     private SFXManager sfxManager;
     private GameManager gameManager;
     private GameObject player;
+    public static int asteroidCount = 0;
 
     void Awake()
     {
@@ -20,9 +21,9 @@ public class AsteroidDestroy : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other)
-    {   
-        
-                     
+    {
+        asteroidCount++;
+
         if (other.tag == "Player")
         {
             if (gameManager.shield >= 1)

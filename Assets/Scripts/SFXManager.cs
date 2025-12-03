@@ -10,8 +10,10 @@ public class SFXManager : MonoBehaviour
     public AudioClip playerExplosion;
     public AudioClip BgMusicGameplay;
     public AudioClip BgMusicTitleScreen;
+    public AudioClip Milestone;
 
-    private AudioSource SFXaudioSource;
+    public AudioSource SFXaudioSource;
+    public AudioSource pitchedShoot;
 
     private AudioSource BgMusicAudioSource;
 
@@ -26,12 +28,20 @@ public class SFXManager : MonoBehaviour
         //BgMusicAudioSource.GetComponent<AudioSource>().Play();       
     }
 
-
+    public void Update()
+    {
+        if (AsteroidDestroy.asteroidCount >= 10)
+        {
+            PlayMilestoneSound();
+            AsteroidDestroy.asteroidCount = 0;
+        }
+    }
 
     //called in the PlayerController Script
     public void PlayerShoot()
     {
-        SFXaudioSource.PlayOneShot(playerShoot);
+        pitchedShoot.pitch = Random.Range(0.3f, 1.3f);
+        pitchedShoot.PlayOneShot(playerShoot);
     }
 
     //called in the PlayerController Script
@@ -52,7 +62,12 @@ public class SFXManager : MonoBehaviour
         SFXaudioSource.PlayOneShot(asteroidExplosion);
     }
 
-    
+    public void PlayMilestoneSound()
+    {
+        SFXaudioSource.PlayOneShot(Milestone);
+    }
+
+
     public void BGMusicMainMenu()
     {
         BgMusicAudioSource.clip = BgMusicTitleScreen;
@@ -65,4 +80,8 @@ public class SFXManager : MonoBehaviour
         BgMusicAudioSource.Play();
 
     }
+
+
+
+    
 }
